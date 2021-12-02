@@ -1,0 +1,39 @@
+<script>
+
+/* chnage Price Based on  IP*/
+
+
+
+$.getJSON("https://jsonip.com?callback=?", function(data) {
+  var Ip =  data.ip;
+  //alert("THis is your IP"+Ip);
+  var mainurl = "https://ipinfo.io/"+Ip+"?token=6090ce610acce2";
+
+$.ajax({
+  url: mainurl,
+  type: "GET",
+  dataType: 'json', 
+  success: function(data) {
+ var Country_Name = data.country ;
+    alert(" This is your Country Name:-"+Country_Name);
+    if (data.country === 'AU') {
+     $(".shopify-currency-form select").val("AUD").change();
+} else if (data.country === 'AR') {
+     $(".shopify-currency-form select").val("ARS");
+} else if (data.country === 'CA') {
+   $(".shopify-currency-form select").val("CAD");
+} else if (data.country === 'US') {
+   $(".shopify-currency-form select").val("USD").change();
+}
+return;
+}
+} );
+
+$('.shopify-currency-form select').on('change', function() {
+$(this)
+    .parents('form')
+    .submit();
+return;
+});
+});
+</script>
